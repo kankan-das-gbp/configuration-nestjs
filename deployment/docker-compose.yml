@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  magento-config-service-nestjs:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
+    container_name: magento-config-service-nestjs
+    ports:
+      - 127.0.0.1:${PORT:-3333}:3333
+    volumes:
+      - ${MAGENTO_ROOT}:/magento:ro
+    env_file:
+      - ../.env
+    environment:
+      PORT: 3333
+      MAGENTO_ROOT: /magento
+      MAGENTO_DB_HOST: ${MAGENTO_DB_HOST}
+      MAGENTO_DB_PORT: ${MAGENTO_DB_PORT}
+      MAGENTO_DB_NAME: ${MAGENTO_DB_NAME}
+      MAGENTO_DB_USER: ${MAGENTO_DB_USER}
+      MAGENTO_DB_PASSWORD: ${MAGENTO_DB_PASSWORD}
+      MAGENTO_DB_TABLE_PREFIX: ${MAGENTO_DB_TABLE_PREFIX}
+      API_KEY: ${API_KEY}
+    restart: always
