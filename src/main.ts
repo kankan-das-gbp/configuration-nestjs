@@ -5,6 +5,7 @@ import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
 
   // Api version , started with v1
   app.setGlobalPrefix('v1');
@@ -12,7 +13,7 @@ async function bootstrap() {
   //Build interactive Swagger API UI documentation 
   const config = new DocumentBuilder()
     .setTitle('Magento Configuration Data Service : NestJs')
-    .setDescription('Service designed to track and extract structure maps from Magento .xml files.')
+    .setDescription(`Service designed to track and extract structure maps from Magento .xml files. \n ${configService.get<string>('MAGENTO_ROOT')}`)
     .setVersion('1.0.0')
     .addApiKey({ type: 'apiKey', name: 'x-api-key', in: 'header' }, 'x-api-key')
     .build();
@@ -21,7 +22,6 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document);
 
   // 4. Resolve the dynamic execution port from system environment configurations
-  const configService = app.get(ConfigService);
   const port = configService.get<number>('PORT') || 3000;
 
   await app.listen(port);
