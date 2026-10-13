@@ -3,7 +3,7 @@ import { ProductValueVarChar } from "./product-value-varchar.entity";
 import { ProductValueInt } from "./product-value-int.entity";
 
 @Entity("catalog_product_entity")
-export class CatalogueProductEntityData {
+export class CatalogProductEntityData {
     @PrimaryGeneratedColumn({name: "entity_id"})
     entity_id!: number;
 

@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MagentoCoreConfigData } from './entities/magento-core-config-data.entity';
 import { MagentoCoreConfigDatabaseService } from './magento-core-config-data.service';
-import { CatalogueProductEntityData } from './entities/product.entity';
+import { CatalogProductEntityData } from './entities/product.entity';
 import { EAVAttributeData } from './entities/eav-attribute.entity';
 import { ProductEAVService } from './product-eav.service';
 import { ProductEavController } from './product-eav.controller';
@@ -13,7 +13,7 @@ import { ProductValueInt } from './entities/product-value-int.entity';
   imports: [
     TypeOrmModule.forFeature([
       MagentoCoreConfigData, 
-      CatalogueProductEntityData, 
+      CatalogProductEntityData, 
       EAVAttributeData, 
       ProductValueVarChar, 
       ProductValueInt
