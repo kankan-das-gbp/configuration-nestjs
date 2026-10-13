@@ -10,6 +10,10 @@ import { MagentoDatabaseModule } from 'src/databases/magento/magento-database.mo
 import { ConfigManagerModule } from 'src/config-manager/config-manager.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MagentoCoreConfigData } from 'src/databases/magento/entities/magento-core-config-data.entity';
+import { CatalogueProductEntityData } from 'src/databases/magento/entities/product.entity';
+import { ProductValueVarChar } from 'src/databases/magento/entities/product-value-varchar.entity';
+import { ProductValueInt } from 'src/databases/magento/entities/product-value-int.entity';
+import { EAVAttributeData } from 'src/databases/magento/entities/eav-attribute.entity';
 
 @Module({
   imports: [
@@ -28,7 +32,13 @@ import { MagentoCoreConfigData } from 'src/databases/magento/entities/magento-co
         password: config.get<string>('MAGENTO_DB_PASSWORD') ?? 'root',
         database: config.getOrThrow<string>('MAGENTO_DB_NAME') ?? "cov_uat_db",
         entityPrefix: config.get<string>('MAGENTO_DB_TABLE_PREFIX') ?? '',
-        entities: [MagentoCoreConfigData],
+        entities: [
+          MagentoCoreConfigData,
+          CatalogueProductEntityData,
+          ProductValueVarChar,
+          ProductValueInt,
+          EAVAttributeData,
+        ],
         synchronize: false,
         // Do not connect during bootstrap. A down database must not stop the app.
         manualInitialization: true,
